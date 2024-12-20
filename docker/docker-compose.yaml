@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  realsense_ros2_docker:
+    image: realsense-ros2-humble:latest
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./src:/ros2_ws/src
+      - ./volume/bag:../bag
+    #privileged: true
+    devices:
+      - /dev/video0:/dev/video0
+      - /dev/video1:/dev/video1
+      - /dev/video2:/dev/video2
+      - /dev/video3:/dev/video3
+      - /dev/video4:/dev/video4
+      - /dev/video5:/dev/video5
+      - /dev/video6:/dev/video6
+      - /dev/video7:/dev/video7
+      - /dev/video8:/dev/video8
+      - /dev/video9:/dev/video9
+      - /dev/media2:/dev/media0
+      - /dev/media3:/dev/media1
+      - /dev/media2:/dev/media2
+      - /dev/media3:/dev/media3
+    device_cgroup_rules:
+      - 'c 81:* rmw'
+      - 'c 189:* rmw'
+    command: >
+      /bin/bash -c "
+      source /opt/ros/humble/setup.bash &&
+      cd /ros2_ws &&
+      ./build_workspace.sh &&  # コンテナ起動時にパッケージをビルド
+      source install/setup.bash &&
+      ros2 launch realsense2_camera rs_launch.py"
