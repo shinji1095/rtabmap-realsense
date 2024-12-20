@@ -14,6 +14,7 @@ Windows上でWSL2上にDockerをインストールしていることを前提に
 - [4. Dockerコンテナの作成](#4-dockerコンテナの作成)
 - [5. データ収集](#5-データ収集)
 - [6. SLAM実行](#6-slam実行)
+- [✅TODO](#todo)
 
 # 1. 実行環境
 
@@ -172,11 +173,20 @@ docker compose down
 4. データ収集
 
 ```shell
-ros2 launch my_realsense_package record_realsense.launch.py
+ros2 launch rtab_realsense 1_record_realsense.launch.py
 ```
 
 # 6. SLAM実行
 
 ```shell
-ros2 launch your_package_name rtabmap_realsense.launch.py
+ros2 launch rtab_realsense 2_rtabmap_realsense.launch.py
 ```
+
+# ✅TODO
+
+- [ ] プログラム`3_***`と`4_***`に関する説明の追記
+- [ ] dockerコンテナからrealsenseが操作可能であることを確認
+- [ ] ros2パッケージのビルドを確認
+- [ ] rtabmapの正常実行を確認
+- [ ] bagファイルの容量を確認（推奨保存容量の確認のため）
+- [ ] VSCODE上でのコンテナ操作説明を追記
