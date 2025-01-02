@@ -26,7 +26,8 @@ RUN apt-get update \
     ros-${ROS_DISTRO}-rviz2 \
  && rm -rf /var/lib/apt/lists/*
 
-RUN apt install ros-humble-rtabmap-ros
+RUN apt-get update && \
+    apt-get install ros-humble-rtabmap-ros -y
 
 RUN mkdir -p ${WS_DIR}/src
 
