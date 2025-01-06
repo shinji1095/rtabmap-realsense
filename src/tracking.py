@@ -1,18 +1,23 @@
 import pyzed.sl as sl
+import argparse 
+import os 
 
 def main():
+    filepath = opt.input_svo_file # Path to the .svo file to be playbacked
+    input_type = sl.InputType()
+    input_type.set_from_svo_file(filepath)  #Set init parameter to run from the .svo 
+    init = sl.InitParameters(input_t=input_type, svo_real_time_mode=False)
+    init.depth_mode = sl.DEPTH_MODE.PERFORMANCE 
     # Create a Camera object
     zed = sl.Camera()
 
     # Create a InitParameters object and set configuration parameters
-    init_params = sl.InitParameters()
-    init_params.svo_input_filename = "path/to/your/file.svo"
     # init_params.camera_resolution = sl.RESOLUTION.AUTO # Use HD720 or HD1200 video mode (default fps: 60)
-    init_params.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP # Use a right-handed Y-up coordinate system
-    init_params.coordinate_units = sl.UNIT.METER  # Set units in meters
+    init.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP # Use a right-handed Y-up coordinate system
+    init.coordinate_units = sl.UNIT.METER  # Set units in meters
 
     # Open the camera
-    err = zed.open(init_params)
+    err = zed.open(init)
     if err != sl.ERROR_CODE.SUCCESS:
         print("Camera Open : "+repr(err)+". Exit program.")
         exit()
@@ -88,4 +93,13 @@ def main():
     zed.close()
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input_svo_file', type=str, help='Path to the SVO file', required= True)
+    opt = parser.parse_args()
+    if not opt.input_svo_file.endswith(".svo") and not opt.input_svo_file.endswith(".svo2"): 
+        print("--input_svo_file parameter should be a .svo file but is not : ",opt.input_svo_file,"Exit program.")
+        exit()
+    if not os.path.isfile(opt.input_svo_file):
+        print("--input_svo_file parameter should be an existing file but is not : ",opt.input_svo_file,"Exit program.")
+        exit()
     main()
