@@ -40,6 +40,7 @@ Windows上でWSL2上にDockerをインストールしていることを前提に
 
 ```shell
 ├── config/
+├── doc/
 ├── docker/
     ├── Dockerfile
     └── docker-compose.yaml
@@ -55,6 +56,7 @@ Windows上でWSL2上にDockerをインストールしていることを前提に
 | フォルダ名 | 役割 |
 | ---- | ---- |
 | config | 設定ファイル管理 |
+| doc | ドキュメント |
 | dokcer | dockerファイル管理 |
 | img | README.mdで使用する画像 |
 | src | ros2自作パッケージのソースコード管理 |
@@ -299,3 +301,4 @@ ros2 launch rtab_realsense 4_play_bag.launch.py
 # 📒参考文献
 - [ROS 2環境でRealSense D435を使ってRTAB-MAPを動かす](https://qiita.com/porizou1/items/1a2ca3a80c72a25289c9)
 - [rtabmap](http://wiki.ros.org/rtabmap)
+- [USBを接続する](https://learn.microsoft.com/ja-jp/windows/wsl/connect-usb)
